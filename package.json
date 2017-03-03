@@ -1,0 +1,35 @@
+{
+  "name": "aws-mobile-analytics-lite",
+  "version": "1.0.0",
+  "description": "AWS Mobile Analytics SDK, with minimal dependencies and optimized for load time",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/server.js",
+    "prebuild": "mkdir -p dist",
+    "build:bootstrap": "browserify ./index.js > dist/awsmalite.js && uglifyjs dist/awsmalite.js > dist/awsmalite.min.js",
+    "build:dependencies": "browserify -r ./aws-stub:aws-sdk ./awssdk-dependencies.js > dist/awsmalite-aws.js && uglifyjs dist/awsmalite-aws.js > dist/awsmalite-aws.min.js",
+    "build": "npm run build:bootstrap && npm run build:dependencies"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karmies/aws-mobile-analytics-lite.git"
+  },
+  "keywords": [],
+  "author": "Karmies, Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karmies/aws-mobile-analytics-lite/issues"
+  },
+  "homepage": "https://github.com/karmies/aws-mobile-analytics-lite#readme",
+  "dependencies": {
+    "aws-sdk-mobile-analytics": "0.9.2",
+    "aws-v4-sign-small": "1.1.1",
+    "tiny-script-loader": "2.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.1",
+    "uglify-js": "^2.8.4"
+  }
+}
