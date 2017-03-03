@@ -1,13 +1,13 @@
 {
   "name": "aws-mobile-analytics-lite",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AWS Mobile Analytics SDK, with minimal dependencies and optimized for load time",
   "main": "index.js",
   "scripts": {
     "test": "node test/server.js",
     "prebuild": "mkdir -p dist",
     "build:bootstrap": "browserify ./index.js > dist/awsmalite.js && uglifyjs dist/awsmalite.js > dist/awsmalite.min.js",
-    "build:dependencies": "browserify -r ./aws-stub:aws-sdk ./awssdk-dependencies.js > dist/awsmalite-aws.js && uglifyjs dist/awsmalite-aws.js > dist/awsmalite-aws.min.js",
+    "build:dependencies": "cp ./aws-stub.js dist/ && browserify -r ./aws-stub:aws-sdk ./awssdk-dependencies.js > dist/awsmalite-aws.js && uglifyjs dist/awsmalite-aws.js > dist/awsmalite-aws.min.js",
     "build": "npm run build:bootstrap && npm run build:dependencies"
   },
   "repository": {

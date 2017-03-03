@@ -103,6 +103,23 @@ mobileAnalyticsClient.recordEvent('EVENT NAME',
 )
 ```
 
+### Requiring via Browserify
+This project is based on the excellent
+[Amazon Mobile Analytics Javascript SDK](https://github.com/aws/aws-sdk-mobile-analytics-js),
+which includes
+[the core AWS Javascript SDK](https://github.com/aws/aws-sdk-js).
+This library works by substituting the AWS SDK for a much lighter replacement.
+In order to make the project compile correctly, you must pass some specific
+options to Browserify, specifying that the AWS SDK be replaced with the AWSMA Lite
+version. Depending on your build setup, that might look something like this:
+
+```
+    browserify -r aws-sdk:./node_modules/aws-mobile-analytics-lite/dist/aws-stub.js index.js > build/app.js
+```
+
+The important part in this snippet is the `-r` option, specifying that the
+`aws-sdk` module be replaced with the file in the AWSMA Lite module directory.
+
 ## Development
 To build the project locally:
 
