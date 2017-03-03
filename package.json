@@ -1,6 +1,6 @@
 {
   "name": "aws-mobile-analytics-lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AWS Mobile Analytics SDK, with minimal dependencies and optimized for load time",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,9 @@
     "url": "https://github.com/karmies/aws-mobile-analytics-lite/issues"
   },
   "homepage": "https://github.com/karmies/aws-mobile-analytics-lite#readme",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "aws-sdk-mobile-analytics": "0.9.2",
     "aws-v4-sign-small": "1.1.1",
