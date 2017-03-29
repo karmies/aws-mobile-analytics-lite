@@ -23,8 +23,7 @@ function fetchCredentials(identityId) {
     data: { IdentityId: identityId }
   })
   .then(function getCredentialsData(data) {
-    var expireTime = new Date(0)
-    expireTime.setSeconds(data.Credentials.Expiration)
+    var expireTime = new Date(data.Credentials.Expiration * 1000)
     return {
       _identityId: data.IdentityId,
       accessKeyId: data.Credentials.AccessKeyId,
@@ -54,7 +53,7 @@ var awsStub = {
     if (!identityIdPromise) {
       identityIdPromise = fetchIdentityId(options.IdentityPoolId)
     }
-    
+
     identityIdPromise.then(function handleIdentityId(identityId) {
       credentials._identityId = identityId
       credentials.params = {
@@ -69,6 +68,13 @@ var awsStub = {
       // Update original credentials object with credentials data:
       for (var key in data) {
         credentials[key] = data[key]
+      }
+    })
+    .catch(function handleError(err) {
+      if (options.onError) {
+        options.onError(err)
+      } else {
+        console.error('Error getting AWS credentials:', err)
       }
     })
       
@@ -109,11 +115,13 @@ function makeAwsRequest(params) {
     // If credentials are bad or expired, mark them as expired:
     if (credentials) { credentials.expired = true }
 
-    // Refresh stale creds asynchronously:
-    fetchCredentials(awsStub.config._identityId)
-    .then(function updateCredentials(credentials) {
-      awsStub.config.credentials = credentials
-    })
+    // Refresh stale creds asynchronously (if Identity ID is initialized):
+    if (credentials._identityId) {
+      fetchCredentials(credentials._identityId)
+      .then(function updateCredentials(credentials) {
+        awsStub.config.credentials = credentials
+      })
+    }
 
     // Immediately reject the request that failed due to stale creds:
     return Promise.reject(new Error('Credentials not set or expired'))

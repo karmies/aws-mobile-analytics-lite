@@ -147,8 +147,8 @@ will log events to your AWS Mobile Analytics account.
     AWSMA_EVENT_NAME={ some unique name for an event, such as "AWSMALITE_TEST_EVENT" }
     ```
 1. Run `npm run build`
-1. Run `npm test`
-1. Follow the link to the test webpage printed from the `npm test` command
+1. Run `npm start`
+1. Follow the link to the test webpage printed from the `npm start` command
 1. Look at the test webpage and network tab, verify the library does send events to AWS
 1. Check the AWS Mobile Analytics console for your test account an hour or more later
    and verify the custom event was published.
