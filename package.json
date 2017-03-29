@@ -1,6 +1,6 @@
 {
   "name": "aws-mobile-analytics-lite",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "AWS Mobile Analytics SDK, with minimal dependencies and optimized for load time",
   "main": "index.js",
   "scripts": {
